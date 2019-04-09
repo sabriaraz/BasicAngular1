@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html ng-app="northwindApp">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <link href="../../Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="../../Scripts/jquery-3.0.0.slim.min.js"></script>
+    <script src="../../Scripts/popper.min.js"></script>
+    <script src="../../Scripts/bootstrap.min.js"></script>
+
+    <script src="../../Scripts/angular.min.js"></script>
+    <script src="NorthwindApp.js"></script>
+
+</head>
+<body>
+    <div class="container" ng-controller="nController">
+        <div class="row">
+            <div class="col-md-7" ng-init="GetProducts()">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Product Name</th>
+                            <th>Unit Price</th>
+                            <th>Quantity Per Unit</th>
+                            <th>Discontinued</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="p in plist" ng-mouseover="Product(p)">
+                            <td>{{p.ProductID}}</td>
+                            <td>{{p.ProductName}}</td>
+                            <td>{{p.UnitPrice}}</td>
+                            <td>{{p.QuantityPerUnit}}</td>
+                            <td>{{p.Discontinued}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-md-5">
+                <h1 class="align-middle">Detail</h1>
+                <form>
+                    <div class="form-group">
+                        <label class="form-control badge badge-dark">Product ID</label>
+                        <input class="form-control" type="text" ng-model="p.ProductID" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control badge badge-dark">Product Name</label>
+                        <input class="form-control" type="text" ng-model="p.ProductName" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control badge badge-dark ">Unit Price</label>
+                        <input class="form-control" type="text" ng-model="p.UnitPrice" />
+                    </div>
+                    <div>
+                        <label>Categories</label>
+                        <select class="form-control" ng-init="p.CategoryID = options[0]" ng-model="p.CategoryID" ng-options="item.CategoryID as item.CategoryName for item in clist"></select>
+
+                        <label>Suppliers</label>
+                        <select class="form-control" ng-init="p.SupplierID = options[0]" ng-model="p.SupplierID" ng-options="item.SupplierID as item.CompanyName for item in slist"></select>
+                        <br />
+                        <input type="submit" ng-click="updateProduct(p)" class="btn btn-warning" value="Güncelle" />
+                        <input type="submit" ng-click="addProduct(p)" class="btn btn-success" value="Ekle" />
+                        <input type="submit" ng-click="deleteProduct(p)" class="btn btn-danger" value="Sil" />
+                        <div ng-if="msg!=''">
+                            <div class="alert alert-success">
+                                <strong> {{msg}}</strong>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
